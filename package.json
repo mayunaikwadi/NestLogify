@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mayunaikwadi/NestLogify.git"
+    "url": "git+https://github.com/mayunaikwadi/nestlogify.git"
   },
   "bugs": {
-    "url": "https://github.com/mayunaikwadi/NestLogify/issues"
+    "url": "https://github.com/mayunaikwadi/nestlogify/issues"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
