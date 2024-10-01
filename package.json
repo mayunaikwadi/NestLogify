@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/mayunaikwadi/nestlogify/issues"
   },
+  "publishConfig": {
+    "@mayunaikwadi:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "format": "prettier --write \"**/*.ts\"",

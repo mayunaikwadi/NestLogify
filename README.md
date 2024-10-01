@@ -1,8 +1,8 @@
 # NestLogify
 
-![Node.js version](https://img.shields.io/node/v/nestlogify)
-![NPM version](https://img.shields.io/npm/v/nestlogify)
-![License](https://img.shields.io/npm/l/nestlogify)
+![Node.js version](https://img.shields.io/node/v/@mayunaikwadi/nestlogify)
+![NPM version](https://img.shields.io/npm/v/@mayunaikwadi/nestlogify)
+![License](https://img.shields.io/npm/l/@mayunaikwadi/nestlogify)
 
 A NestLogify is customizable logger module for NestJS that supports both Pino and Winston logging. This package allows you to easily integrate structured logging into your NestJS applications.
 
@@ -29,7 +29,7 @@ A NestLogify is customizable logger module for NestJS that supports both Pino an
 To install the package, run the following command:
 
 ```bash
-npm install nestlogify
+npm install @mayunaikwadi/nestlogify
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ Import the LoggerModule in your application's main module (e.g., ```AppModule```
 
 ```bash
 import { Module } from '@nestjs/common';
-import { LoggerModule } from 'nestlogify';
+import { LoggerModule } from '@mayunaikwadi/nestlogify';
 
 @Module({
   imports: [
@@ -78,7 +78,7 @@ You can configure the logger module by passing either 'pino' or 'winston' as a p
 
 ```bash
 import { Module } from '@nestjs/common';
-import { LoggerModule } from 'nestlogify';
+import { LoggerModule } from '@mayunaikwadi/nestlogify';
 
 @Module({
   imports: [
