@@ -1,0 +1,48 @@
+{
+  "name": "@mayunaikwadi/nestlogify",
+  "version": "0.0.1",
+  "description": "A customizable logger module for NestJS that supports both Pino and Winston logging. This package allows you to easily integrate structured logging into your NestJS applications",
+  "author": "Mayur Naikwadi <mayunaikwadi@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": "20.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayunaikwadi/NestLogify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mayunaikwadi/NestLogify/issues"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "format": "prettier --write \"**/*.ts\"",
+    "lint": "eslint 'lib/**/*.ts' --fix",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public",
+    "prepublish:next": "npm run build",
+    "publish:next": "npm publish --access public --tag next",
+    "test:e2e": "jest --config ./tests/jest-e2e.json --runInBand",
+    "test:e2e:dev": "jest --config ./tests/jest-e2e.json --runInBand --watch"
+  },
+  "keywords": [
+    "NestJs Logger",
+    "Logging",
+    "Pino Logger",
+    "Winston Logger"
+  ],
+  "dependencies": {
+    "@nestjs/common": "^10.4.4",
+    "pino": "^9.4.0",
+    "pino-pretty": "^11.2.2",
+    "rotating-file-stream": "^3.2.5",
+    "winston": "^3.14.2",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4"
+  }
+}
