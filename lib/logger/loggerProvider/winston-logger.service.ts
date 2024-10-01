@@ -1,4 +1,4 @@
-import { ILogger } from './logger.interface';
+import { ILogger, LoggerOptions } from '../logger.interface';
 import * as winston from 'winston';
 
 // Use require for winston-daily-rotate-file
@@ -7,16 +7,12 @@ const DailyRotateFile = require('winston-daily-rotate-file');
 export class WinstonLoggerService implements ILogger {
   private logger;
 
-  constructor() {
-    const logDir = 'logs/winston';
+  constructor(loggerOptions : LoggerOptions) {
 
-    this.logger = winston.createLogger({
-      level: 'info',
-      format: winston.format.combine(
-        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`)
-      ),
-      transports: [
+    const transports = [];
+    if(loggerOptions.logExporter == 'both' || loggerOptions.logExporter == 'file'){
+      const logDir = 'logs/winston';
+      transports.push(...[
         new winston.transports.Console(),
         new DailyRotateFile({
           filename: `${logDir}/application-%DATE%.log`,
@@ -25,7 +21,20 @@ export class WinstonLoggerService implements ILogger {
           maxSize: '20m',
           maxFiles: '14d',
         }),
-      ],
+      ]);
+    }else{
+      transports.push(...[
+        new winston.transports.Console(),
+      ]);
+    }
+
+    this.logger = winston.createLogger({
+      level: 'info',
+      format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`)
+      ),
+      transports: transports,
     });
   }
 

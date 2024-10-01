@@ -1,11 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { LoggerFactory } from './logger.factory';
-import { ILogger } from './logger.interface';
+import { ILogger, LoggerOptions } from './logger.interface';
 
 @Module({})
 export class LoggerModule {
-  static forRoot(type: 'pino' | 'winston'): DynamicModule {
-    const loggerService = LoggerFactory.createLogger(type);
+  static forRoot(loggerOptions : LoggerOptions): DynamicModule {
+    const loggerService = LoggerFactory.createLogger(loggerOptions);
 
     return {
       module: LoggerModule,

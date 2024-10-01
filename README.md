@@ -4,7 +4,7 @@
 ![NPM version](https://img.shields.io/npm/v/@mayunaikwadi/nestlogify)
 ![License](https://img.shields.io/npm/l/@mayunaikwadi/nestlogify)
 
-A NestLogify is customizable logger module for NestJS that supports both Pino and Winston logging. This package allows you to easily integrate structured logging into your NestJS applications.
+NestLogify is a highly customizable and versatile logger module designed for NestJS, offering seamless integration with both Pino and Winston logging libraries. It empowers developers to implement structured and efficient logging within their NestJS applications, enhancing observability and debugging with minimal effort. The module operates based on two key parameters: ```logProvider```, which specifies the provider ('pino' or 'winston'), and ```logExporter```, which determines how logs are exported ('file', 'console', or 'both'), making it a flexible solution for advanced log management.
 
 ## Table of Contents
 
@@ -44,7 +44,8 @@ import { LoggerModule } from '@mayunaikwadi/nestlogify';
 
 @Module({
   imports: [
-    LoggerModule.forRoot('pino'), // Use 'winston' for Winston logger
+    // Use 'winston' for Winston logger and logExporter - 'file' | 'console' | 'both'
+    LoggerModule.forRoot({ logProvider : 'pino', logExporter : 'both' }),  
   ],
 })
 export class AppModule {}
@@ -82,7 +83,8 @@ import { LoggerModule } from '@mayunaikwadi/nestlogify';
 
 @Module({
   imports: [
-    LoggerModule.forRoot('pino'), // Use Pino logger
+    // Set the logExporter value to either 'file', 'console', or 'both'.
+    LoggerModule.forRoot({ logProvider : 'pino', logExporter : 'both' }),  
   ],
 })
 export class AppModule {}
@@ -98,7 +100,8 @@ import { LoggerModule } from 'nestlogify';
 
 @Module({
   imports: [
-    LoggerModule.forRoot('winston'), // Use winston logger
+    // Set the logExporter value to either 'file', 'console', or 'both'.
+    LoggerModule.forRoot({ logProvider : 'winston', logExporter : 'both' }),  
   ],
 })
 export class AppModule {}
@@ -126,7 +129,12 @@ export class AppService {
 ```
 ## API Reference
 Logger Module
-```LoggerModule.forRoot(type: 'pino' | 'winston')```: Initializes the logger module with the specified logger type.
+``` LoggerModule.forRoot({ logProvider : 'winston', logExporter : 'both' }), ```: Initializes the logger module with the specified logger type.
+
+## Logger Parameters
+
+- ``` logProvider : LoggerProvider;```  - This property specifies the provider name. It should be set to either 'pino' or 'winston'.
+- ``` logExporter : LogExporter ``` - This property determines the way logs are exported. Set the value to either 'file', 'console', or 'both'.
 
 ## Logger Interface
 The logger interface supports the following methods:

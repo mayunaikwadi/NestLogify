@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { PinoLoggerService } from './pino-logger.service';
-import { WinstonLoggerService } from './winston-logger.service';
-import { ILogger } from './logger.interface';
+import { PinoLoggerService } from './loggerProvider/pino-logger.service';
+import { WinstonLoggerService } from './loggerProvider/winston-logger.service';
+import { ILogger, LoggerOptions } from './logger.interface';
 
 @Injectable()
 export class LoggerFactory {
-  static createLogger(loggerType: 'pino' | 'winston'): ILogger {
-    switch (loggerType) {
+  static createLogger(loggerOptions : LoggerOptions): ILogger {
+    switch (loggerOptions.logProvider) {
       case 'pino':
-        return new PinoLoggerService();
+        return new PinoLoggerService(loggerOptions);
       case 'winston':
-        return new WinstonLoggerService();
+        return new WinstonLoggerService(loggerOptions);
       default:
         throw new Error('Invalid logger type');
     }

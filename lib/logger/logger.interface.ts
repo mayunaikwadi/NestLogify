@@ -5,5 +5,13 @@ export interface ILogger {
     debug(message: string, context?: string): void;
     verbose?(message: string, context?: string): void;
     info(message: string): void;
-  }
+}
+
+export type LoggerProvider = 'pino' | 'winston';
+export type LogExporter = 'console' | 'file' | 'both';
+
+export interface LoggerOptions {
+  logProvider : LoggerProvider;
+  logExporter : LogExporter
+}
   
