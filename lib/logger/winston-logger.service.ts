@@ -1,7 +1,5 @@
 import { ILogger } from './logger.interface';
-import { createLogger, format, transports } from 'winston';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as winston from 'winston';
 
 // Use require for winston-daily-rotate-file
 const DailyRotateFile = require('winston-daily-rotate-file');
@@ -10,47 +8,25 @@ export class WinstonLoggerService implements ILogger {
   private logger;
 
   constructor() {
-    const today = new Date();
-    const dateFolderName = this.getFormattedDate(today); // e.g., '2024-10-01'
-    const logDir = path.join(__dirname, `../../logs/winston/${dateFolderName}`);
+    const logDir = 'logs/winston';
 
-    // Ensure the log directory exists
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
-    }
-
-    const customFileFormat = format.printf(({ timestamp, level, message }) => {
-      return `${timestamp} ${level}: ${message}`;
-    });
-
-    this.logger = createLogger({
+    this.logger = winston.createLogger({
       level: 'info',
-      format: format.combine(
-        format.timestamp({
-          format: 'YYYY-MM-DD HH:mm:ss',
-        }),
-        customFileFormat
+      format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`)
       ),
       transports: [
-        new transports.Console(),
+        new winston.transports.Console(),
         new DailyRotateFile({
-          level: 'info',
-          filename: `${logDir}/app-logs-%DATE%.log`,
+          filename: `${logDir}/application-%DATE%.log`,
           datePattern: 'YYYY-MM-DD',
           zippedArchive: true,
-          maxSize: '5m',
+          maxSize: '20m',
           maxFiles: '14d',
         }),
       ],
     });
-  }
-
-  // Helper function to get date in 'YYYY-MM-DD' format
-  private getFormattedDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
   }
 
   log(message: string): void {
@@ -71,9 +47,5 @@ export class WinstonLoggerService implements ILogger {
 
   debug(message: string): void {
     this.logger.debug(message);
-  }
-
-  verbose(message: string): void {
-    this.logger.verbose(message);
   }
 }
